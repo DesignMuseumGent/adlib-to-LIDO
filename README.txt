@@ -19,5 +19,5 @@ EventWrap:
 *Production_date(start/precision/end/precision)
 *Production_place
 *Acquisition_source
-*Current_owner 
+*Current_owner
 

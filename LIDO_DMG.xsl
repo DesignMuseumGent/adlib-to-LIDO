@@ -1,3 +1,4 @@
+<!--XSLT for transforming Adlib XML into LIDO xml (Design Museum Gent / ErfgoedInzicht) -->
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:template match="/">
@@ -180,7 +181,26 @@
                                                     <lido:roleActor><lido:term>acquirer</lido:term></lido:roleActor>
                                                 </lido:actorInRole>
                                             </lido:eventActor>
-                                        </xsl:if>
+                                            </xsl:if>
+                                            <!-- ACQUISITION PLACE -->
+                                            <xsl:if test="acquisition.date">
+                                                <lido:eventDate>
+                                                    <lido:displayDate><xsl:value-of select="./acquisition.date.precision"/>;<xsl:value-of select="./acquisition.date"/></lido:displayDate>
+                                                    <lido:date>
+                                                        <lido:earliestDate></lido:earliestDate>
+                                                        <lido:latestDate></lido:latestDate>
+                                                    </lido:date>
+                                                </lido:eventDate>
+                                            </xsl:if>
+                                            <!-- ACQUISITION PLACE -->
+                                            <xsl:if test="acquisition.place">
+                                                <lido:eventPlace>
+                                                    <lido:place>
+                                                        <lido:placeID lido:type="local"
+                                                    </lido:place>
+                                                </lido:eventPlace>
+                                            </xsl:if>
+
                                         </lido:event>
                                     </lido:eventSet>
                                 </xsl:if>
