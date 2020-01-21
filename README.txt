@@ -8,3 +8,16 @@ ObjectClassificationWrap:
 *Object_name
 *Object_category
 
+ObjectIdentificationWrap:
+*Object_title
+*Title_translation
+*Object_number
+
+EventWrap:
+*Creator
+*Creator_qualifier
+*Production_date(start/precision/end/precision)
+*Production_place
+*Acquisition_source
+*Current_owner 
+
