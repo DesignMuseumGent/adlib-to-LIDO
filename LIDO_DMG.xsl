@@ -32,13 +32,20 @@
                                     </xsl:choose>
                                 </lido:objectWorkTypeWrap>
                                 <lido:classificationWrap>
-                                    <!--for each object category their needs to be one classification node -->
-                                    <xsl:for-each select="./object_category">
-                                        <lido:classification>
-                                            <!--voor lido:conceptID moet de waarde van objectcategorie.lref gemapped worden -->
-                                            <lido:term><xsl:value-of select="./object_category/value"/></lido:term>
-                                        </lido:classification>
-                                    </xsl:for-each>
+                                    <!--for each object category their needs to be one classification node
+                                     todo object_category (parse error)-->
+                                    <xsl:choose>
+                                        <xsl:when test="./object_category">
+                                            <xsl:for-each select="./object_category">
+                                                <lido:classification>
+                                                    <!--voor lido:conceptID moet de waarde van objectcategorie.lref gemapped worden -->
+                                                    <lido:conceptID lido:type="local" lido:label="Adlib database number"><xsl:value-of
+                                                            select="./object_category.lref"/></lido:conceptID>
+                                                    <lido:term><xsl:value-of select="./object_category/value"/></lido:term>
+                                                </lido:classification>
+                                            </xsl:for-each>
+                                        </xsl:when>
+                                     </xsl:choose>
 
                                 </lido:classificationWrap>
                             </lido:objectClassificationWrap>
@@ -97,6 +104,8 @@
                                     <lido:eventSet>
                                         <lido:event>
                                             <lido:eventType><lido:term>production</lido:term></lido:eventType>
+
+
                                             <xsl:for-each select="./Production">
                                                 <lido:eventActor>
                                                     <lido:actorInRole>
@@ -116,7 +125,9 @@
                                                     </lido:actorInRole>
                                                 </lido:eventActor>
                                             </xsl:for-each>
+
                                             <!--PRODUCTION DATES -->
+
                                             <xsl:if test="Production_date">
                                                 <lido:eventDate>
                                                     <lido:displayDate><xsl:value-of select="./Production_date/production.date.start.prec"/>;<xsl:value-of
@@ -124,8 +135,8 @@
                                                             select="./Production_date/production.date.end.prec"/><xsl:value-of
                                                             select="./Production_date/production.date.end"/></lido:displayDate>
                                                     <lido:date>
-                                                        <lido:earliestDate></lido:earliestDate>
-                                                        <lido:latestDate></lido:latestDate>
+                                                        <lido:earliestDate><xsl:value-of select="./Production_date/production.date.start"/></lido:earliestDate>
+                                                        <lido:latestDate><xsl:value-of select="./Production_date/production.date.end"/></lido:latestDate>
                                                     </lido:date>
                                                 </lido:eventDate>
                                             </xsl:if>
@@ -154,7 +165,9 @@
                                             <lido:eventType>
                                                 <lido:term>acquisition</lido:term>
                                             </lido:eventType>
+
                                             <!-- ACQUISITION SOURCE -->
+
                                             <xsl:for-each select="./Acquisition_source">
                                                 <lido:eventActor>
                                                     <lido:Actor>
@@ -167,7 +180,9 @@
                                                     <lido:roleActor><lido:term>repeller</lido:term></lido:roleActor>
                                                 </lido:eventActor>
                                             </xsl:for-each>
+
                                             <!-- CURRENT OWNER -->
+
                                             <xsl:if test="current_owner">
                                             <lido:eventActor>
                                                 <lido:actorInRole>
@@ -181,28 +196,506 @@
                                                 </lido:actorInRole>
                                             </lido:eventActor>
                                             </xsl:if>
+
                                             <!-- ACQUISITION PLACE -->
+
                                             <xsl:if test="acquisition.date">
                                                 <lido:eventDate>
                                                     <lido:displayDate><xsl:value-of select="./acquisition.date.precision"/>;<xsl:value-of select="./acquisition.date"/></lido:displayDate>
                                                     <lido:date>
-                                                        <lido:earliestDate></lido:earliestDate>
-                                                        <lido:latestDate></lido:latestDate>
+                                                        <lido:earliestDate><xsl:value-of select="./acquisition.date"/></lido:earliestDate>
+                                                        <lido:latestDate><xsl:value-of select="./acquisition.date"/></lido:latestDate>
                                                     </lido:date>
                                                 </lido:eventDate>
                                             </xsl:if>
+
                                             <!-- ACQUISITION PLACE -->
+
                                             <xsl:if test="acquisition.place">
                                                 <lido:eventPlace>
                                                     <lido:place>
-                                                        <lido:placeID lido:type="local"
+                                                        <lido:placeID lido:type="local" lido:label="Adlib database number">
+                                                            <xsl:value-of select="./acquisition.place.lref"/>
+                                                        </lido:placeID>
+                                                        <lido:namePlaceSet>
+                                                            <lido:appellationValue><xsl:value-of select="./acquisition.place"/></lido:appellationValue>
+                                                        </lido:namePlaceSet>
                                                     </lido:place>
                                                 </lido:eventPlace>
+                                            </xsl:if>
+
+                                            <!-- ACQUISITION METHOD -->
+
+                                            <xsl:if test="./acquisition.method">
+                                                <lido:eventMethod>
+                                                    <lido:conceptID lido:type="local" lido:label="Adlib database number">
+                                                        <xsl:value-of select="./acquisition.method.lref"/>
+                                                    </lido:conceptID>
+                                                    <lido:term>
+                                                        <xsl:value-of select="./acquisition.method"/>
+                                                    </lido:term>
+                                                </lido:eventMethod>
+                                            </xsl:if>
+
+                                            <!-- ACQUISITION NOTES -->
+
+                                            <xsl:if test="./acquisition.notes">
+                                                <lido:eventDescriptionSet>
+                                                    <lido:descriptiveNoteValue>
+                                                        <xsl:value-of select="./acquisition.notes"/>
+                                                    </lido:descriptiveNoteValue>
+                                                </lido:eventDescriptionSet>
                                             </xsl:if>
 
                                         </lido:event>
                                     </lido:eventSet>
                                 </xsl:if>
+
+                                <!-- OWNERHIST: ACQUIRED FROM | OWNER | DATE START | DATE END | PLACE | NOTES -->
+                                <!-- OWNER HISTORY ITERATION 1-->
+
+                                <xsl:if test="owner_hist.acquired_from | owner_hist.owner | owner_hist.date.start | owner_hist.date.end |owner_hist.notes">
+                                    <xsl:if test="owner_hist.acquired_from[1] | owner_hist.owner[1] | owner_hist.date.start[1] | owner_hist.date.end[1] | owner_hist.notes[1]">
+                                        <lido:eventSet>
+                                            <lido:eventType>
+
+                                                <!-- DEFAULT: PROVENANCE -->
+
+                                                <lido:term>provenance</lido:term>
+                                            </lido:eventType>
+
+                                            <!-- ACQUISITION SOURCE [1] -->
+                                            
+                                            <xsl:if test="./owner_hist.acquired_from[1]">
+                                                <lido:eventActor>
+                                                    <lido:actorInRole>
+                                                        <lido:actor>
+                                                            <lido:actorID lido:type="local" lido:label="Adlib database number">
+                                                                <xsl:value-of select="./owner_hist.acquired_from.lref[1]"/>
+                                                            </lido:actorID>
+                                                            <lido:nameActorSet>
+                                                                <lido:appellationValue>
+                                                                    <xsl:value-of select="./owner_hist.acquired_from[1]/value"/>
+                                                                </lido:appellationValue>
+                                                            </lido:nameActorSet>
+                                                        </lido:actor>
+                                                    </lido:actorInRole>
+                                                </lido:eventActor>
+                                            </xsl:if>
+                                            
+                                            <!-- Pedigree:OWNER [1] (target) --> 
+                                            
+                                            <xsl:if test="./owner_hist.owner[1]">
+                                                <lido:eventActor>
+                                                    <lido:actorInRole>
+                                                        <lido:actor>
+                                                            <lido:actorID lido:type="local" lido:label="Adlib database number">
+                                                                <xsl:value-of select="./owner_hist.owner.lref[1]"/>
+                                                            </lido:actorID>
+                                                            <lido:nameActorSet>
+                                                                <lido:appellationValue>
+                                                                    <xsl:value-of select="./owner_hist.owner[1]/value"/>
+                                                                </lido:appellationValue>
+                                                            </lido:nameActorSet>
+                                                        </lido:actor>
+                                                    </lido:actorInRole>
+                                                </lido:eventActor>
+                                            </xsl:if>
+                                            
+                                            <!-- OWNER HISTORY: DATE START -OR- DATE END [1] -->
+                                            
+                                            <xsl:if test="./owner_hist.date.start[1] or owner_hist.date.end[1]">
+                                                <lido:eventDate>
+                                                    <lido:displayDate>
+                                                        <xsl:value-of select="./owner_hist.date.start[1]"/>;<xsl:value-of
+                                                            select="./owner_hist.date.end[1]"/>
+                                                    </lido:displayDate>
+                                                    <lido:date>
+                                                        <lido:earliestDate>
+                                                            <xsl:value-of select="./owner_hist.date.start[1]"/>
+                                                        </lido:earliestDate>
+                                                        <lido:latestDate>
+                                                            <xsl:value-of select="./owner_hist.date.end[1]"/>
+                                                        </lido:latestDate>
+                                                    </lido:date>
+                                                </lido:eventDate>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: PLACE [1]-->
+
+                                            <xsl:if test="./owner_hist.place[1]">
+                                                <lido:eventPlace>
+                                                    <lido:place>
+                                                        <lido:placeID lido:type="local" lido:label="Adlib database number">
+                                                            <xsl:value-of select="./owner_hist.place.lref[1]"/>
+                                                        </lido:placeID>
+                                                        <lido:namePlaceSet>
+                                                            <lido:appellationValue>
+                                                                <xsl:value-of select="./owner_hist.place[1]/value"/>
+                                                            </lido:appellationValue>
+                                                        </lido:namePlaceSet>
+                                                    </lido:place>
+                                                </lido:eventPlace>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY:  ACQUISITION METHOD [1] -->
+
+                                            <xsl:if test="./owner_hist.acquisition.method[1]">
+                                                <lido:eventMethod>
+                                                    <lido:conceptID lido:type="local" lido:label="Adlib database number">
+                                                        <xsl:value-of select="./owner_hist.acquisition.method.lref[1]"/>
+                                                    </lido:conceptID>
+                                                    <lido:term>
+                                                        <xsl:value-of select="./owner_hist.acquisition.method[1]/value"/>
+                                                    </lido:term>
+                                                </lido:eventMethod>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: NOTES [1] -->
+
+                                            <xsl:if test="./owner_hist.notes[1]">
+                                                <lido:eventDescriptionSet>
+                                                    <lido:descriptiveNoteValue><xsl:value-of select="./owner_hist.notes[1]/value"/></lido:descriptiveNoteValue>
+                                                </lido:eventDescriptionSet>
+                                            </xsl:if>
+
+                                        </lido:eventSet>
+                                    </xsl:if>
+                                </xsl:if>
+
+                                <!-- OWNER HISTORY ITERATION 2-->
+
+                                <xsl:if test="owner_hist.acquired_from | owner_hist.owner | owner_hist.date.start | owner_hist.date.end |owner_hist.notes">
+                                    <xsl:if test="owner_hist.acquired_from[2] | owner_hist.owner[2] | owner_hist.date.start[2] | owner_hist.date.end[2] | owner_hist.notes[2]">
+                                        <lido:eventSet>
+                                            <lido:eventType>
+
+                                                <!-- DEFAULT: PROVENANCE -->
+
+                                                <lido:term>provenance</lido:term>
+                                            </lido:eventType>
+
+                                            <!-- ACQUISITION SOURCE [2] -->
+
+                                            <xsl:if test="./owner_hist.acquired_from[2]">
+                                                <lido:eventActor>
+                                                    <lido:actorInRole>
+                                                        <lido:actor>
+                                                            <lido:actorID lido:type="local" lido:label="Adlib database number">
+                                                                <xsl:value-of select="./owner_hist.acquired_from.lref[2]"/>
+                                                            </lido:actorID>
+                                                            <lido:nameActorSet>
+                                                                <lido:appellationValue>
+                                                                    <xsl:value-of select="./owner_hist.acquired_from[2]/value"/>
+                                                                </lido:appellationValue>
+                                                            </lido:nameActorSet>
+                                                        </lido:actor>
+                                                    </lido:actorInRole>
+                                                </lido:eventActor>
+                                            </xsl:if>
+
+                                            <!-- Pedigree:OWNER [2] (target) -->
+
+                                            <xsl:if test="./owner_hist.owner[2]">
+                                                <lido:eventActor>
+                                                    <lido:actorInRole>
+                                                        <lido:actor>
+                                                            <lido:actorID lido:type="local" lido:label="Adlib database number">
+                                                                <xsl:value-of select="./owner_hist.owner.lref[2]"/>
+                                                            </lido:actorID>
+                                                            <lido:nameActorSet>
+                                                                <lido:appellationValue>
+                                                                    <xsl:value-of select="./owner_hist.owner[2]/value"/>
+                                                                </lido:appellationValue>
+                                                            </lido:nameActorSet>
+                                                        </lido:actor>
+                                                    </lido:actorInRole>
+                                                </lido:eventActor>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: DATE START -OR- DATE END [2] -->
+
+                                            <xsl:if test="./owner_hist.date.start[1] or owner_hist.date.end[2]">
+                                                <lido:eventDate>
+                                                    <lido:displayDate>
+                                                        <xsl:value-of select="./owner_hist.date.start[2]"/>;<xsl:value-of
+                                                            select="./owner_hist.date.end[2]"/>
+                                                    </lido:displayDate>
+                                                    <lido:date>
+                                                        <lido:earliestDate>
+                                                            <xsl:value-of select="./owner_hist.date.start[2]"/>
+                                                        </lido:earliestDate>
+                                                        <lido:latestDate>
+                                                            <xsl:value-of select="./owner_hist.date.end[2]"/>
+                                                        </lido:latestDate>
+                                                    </lido:date>
+                                                </lido:eventDate>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: PLACE [2]-->
+
+                                            <xsl:if test="./owner_hist.place[2]">
+                                                <lido:eventPlace>
+                                                    <lido:place>
+                                                        <lido:placeID lido:type="local" lido:label="Adlib database number">
+                                                            <xsl:value-of select="./owner_hist.place.lref[2]"/>
+                                                        </lido:placeID>
+                                                        <lido:namePlaceSet>
+                                                            <lido:appellationValue>
+                                                                <xsl:value-of select="./owner_hist.place[2]/value"/>
+                                                            </lido:appellationValue>
+                                                        </lido:namePlaceSet>
+                                                    </lido:place>
+                                                </lido:eventPlace>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY:  ACQUISITION METHOD [2] -->
+
+                                            <xsl:if test="./owner_hist.acquisition.method[2]">
+                                                <lido:eventMethod>
+                                                    <lido:conceptID lido:type="local" lido:label="Adlib database number">
+                                                        <xsl:value-of select="./owner_hist.acquisition.method.lref[2]"/>
+                                                    </lido:conceptID>
+                                                    <lido:term>
+                                                        <xsl:value-of select="./owner_hist.acquisition.method[2]/value"/>
+                                                    </lido:term>
+                                                </lido:eventMethod>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: NOTES [2] -->
+
+                                            <xsl:if test="./owner_hist.notes[2]">
+                                                <lido:eventDescriptionSet>
+                                                    <lido:descriptiveNoteValue><xsl:value-of select="./owner_hist.notes[2]/value"/></lido:descriptiveNoteValue>
+                                                </lido:eventDescriptionSet>
+                                            </xsl:if>
+
+                                        </lido:eventSet>
+                                    </xsl:if>
+                                </xsl:if>
+
+                                <!-- OWNER HISTORY ITERATION 3-->
+
+                                <xsl:if test="owner_hist.acquired_from | owner_hist.owner | owner_hist.date.start | owner_hist.date.end |owner_hist.notes">
+                                    <xsl:if test="owner_hist.acquired_from[3] | owner_hist.owner[3] | owner_hist.date.start[3] | owner_hist.date.end[3] | owner_hist.notes[3]">
+                                        <lido:eventSet>
+                                            <lido:eventType>
+
+                                                <!-- DEFAULT: PROVENANCE -->
+
+                                                <lido:term>provenance</lido:term>
+                                            </lido:eventType>
+
+                                            <!-- ACQUISITION SOURCE [3] -->
+
+                                            <xsl:if test="./owner_hist.acquired_from[3]">
+                                                <lido:eventActor>
+                                                    <lido:actorInRole>
+                                                        <lido:actor>
+                                                            <lido:actorID lido:type="local" lido:label="Adlib database number">
+                                                                <xsl:value-of select="./owner_hist.acquired_from.lref[3]"/>
+                                                            </lido:actorID>
+                                                            <lido:nameActorSet>
+                                                                <lido:appellationValue>
+                                                                    <xsl:value-of select="./owner_hist.acquired_from[3]/value"/>
+                                                                </lido:appellationValue>
+                                                            </lido:nameActorSet>
+                                                        </lido:actor>
+                                                    </lido:actorInRole>
+                                                </lido:eventActor>
+                                            </xsl:if>
+
+                                            <!-- Pedigree:OWNER [3] (target) -->
+
+                                            <xsl:if test="./owner_hist.owner[3]">
+                                                <lido:eventActor>
+                                                    <lido:actorInRole>
+                                                        <lido:actor>
+                                                            <lido:actorID lido:type="local" lido:label="Adlib database number">
+                                                                <xsl:value-of select="./owner_hist.owner.lref[3]"/>
+                                                            </lido:actorID>
+                                                            <lido:nameActorSet>
+                                                                <lido:appellationValue>
+                                                                    <xsl:value-of select="./owner_hist.owner[3]/value"/>
+                                                                </lido:appellationValue>
+                                                            </lido:nameActorSet>
+                                                        </lido:actor>
+                                                    </lido:actorInRole>
+                                                </lido:eventActor>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: DATE START -OR- DATE END [3] -->
+
+                                            <xsl:if test="./owner_hist.date.start[3] or owner_hist.date.end[3]">
+                                                <lido:eventDate>
+                                                    <lido:displayDate>
+                                                        <xsl:value-of select="./owner_hist.date.start[3]"/>;<xsl:value-of
+                                                            select="./owner_hist.date.end[3]"/>
+                                                    </lido:displayDate>
+                                                    <lido:date>
+                                                        <lido:earliestDate>
+                                                            <xsl:value-of select="./owner_hist.date.start[3]"/>
+                                                        </lido:earliestDate>
+                                                        <lido:latestDate>
+                                                            <xsl:value-of select="./owner_hist.date.end[3]"/>
+                                                        </lido:latestDate>
+                                                    </lido:date>
+                                                </lido:eventDate>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: PLACE [3]-->
+
+                                            <xsl:if test="./owner_hist.place[3]">
+                                                <lido:eventPlace>
+                                                    <lido:place>
+                                                        <lido:placeID lido:type="local" lido:label="Adlib database number">
+                                                            <xsl:value-of select="./owner_hist.place.lref[3]"/>
+                                                        </lido:placeID>
+                                                        <lido:namePlaceSet>
+                                                            <lido:appellationValue>
+                                                                <xsl:value-of select="./owner_hist.place[3]/value"/>
+                                                            </lido:appellationValue>
+                                                        </lido:namePlaceSet>
+                                                    </lido:place>
+                                                </lido:eventPlace>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY:  ACQUISITION METHOD [3] -->
+
+                                            <xsl:if test="./owner_hist.acquisition.method[1]">
+                                                <lido:eventMethod>
+                                                    <lido:conceptID lido:type="local" lido:label="Adlib database number">
+                                                        <xsl:value-of select="./owner_hist.acquisition.method.lref[3]"/>
+                                                    </lido:conceptID>
+                                                    <lido:term>
+                                                        <xsl:value-of select="./owner_hist.acquisition.method[3]/value"/>
+                                                    </lido:term>
+                                                </lido:eventMethod>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: NOTES [3] -->
+
+                                            <xsl:if test="./owner_hist.notes[3]">
+                                                <lido:eventDescriptionSet>
+                                                    <lido:descriptiveNoteValue><xsl:value-of select="./owner_hist.notes[3]/value"/></lido:descriptiveNoteValue>
+                                                </lido:eventDescriptionSet>
+                                            </xsl:if>
+
+                                        </lido:eventSet>
+                                    </xsl:if>
+                                </xsl:if>
+
+                                <!-- OWNER HISTORY ITERATION 4-->
+
+                                <xsl:if test="owner_hist.acquired_from | owner_hist.owner | owner_hist.date.start | owner_hist.date.end |owner_hist.notes">
+                                    <xsl:if test="owner_hist.acquired_from[4] | owner_hist.owner[4] | owner_hist.date.start[4] | owner_hist.date.end[4] | owner_hist.notes[4]">
+                                        <lido:eventSet>
+                                            <lido:eventType>
+
+                                                <!-- DEFAULT: PROVENANCE -->
+
+                                                <lido:term>provenance</lido:term>
+                                            </lido:eventType>
+
+                                            <!-- ACQUISITION SOURCE [4] -->
+
+                                            <xsl:if test="./owner_hist.acquired_from[4]">
+                                                <lido:eventActor>
+                                                    <lido:actorInRole>
+                                                        <lido:actor>
+                                                            <lido:actorID lido:type="local" lido:label="Adlib database number">
+                                                                <xsl:value-of select="./owner_hist.acquired_from.lref[4]"/>
+                                                            </lido:actorID>
+                                                            <lido:nameActorSet>
+                                                                <lido:appellationValue>
+                                                                    <xsl:value-of select="./owner_hist.acquired_from[4]/value"/>
+                                                                </lido:appellationValue>
+                                                            </lido:nameActorSet>
+                                                        </lido:actor>
+                                                    </lido:actorInRole>
+                                                </lido:eventActor>
+                                            </xsl:if>
+
+                                            <!-- Pedigree:OWNER [4] (target) -->
+
+                                            <xsl:if test="./owner_hist.owner[4]">
+                                                <lido:eventActor>
+                                                    <lido:actorInRole>
+                                                        <lido:actor>
+                                                            <lido:actorID lido:type="local" lido:label="Adlib database number">
+                                                                <xsl:value-of select="./owner_hist.owner.lref[4]"/>
+                                                            </lido:actorID>
+                                                            <lido:nameActorSet>
+                                                                <lido:appellationValue>
+                                                                    <xsl:value-of select="./owner_hist.owner[4]/value"/>
+                                                                </lido:appellationValue>
+                                                            </lido:nameActorSet>
+                                                        </lido:actor>
+                                                    </lido:actorInRole>
+                                                </lido:eventActor>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: DATE START -OR- DATE END [4] -->
+
+                                            <xsl:if test="./owner_hist.date.start[4] or owner_hist.date.end[4]">
+                                                <lido:eventDate>
+                                                    <lido:displayDate>
+                                                        <xsl:value-of select="./owner_hist.date.start[4]"/>;<xsl:value-of
+                                                            select="./owner_hist.date.end[4]"/>
+                                                    </lido:displayDate>
+                                                    <lido:date>
+                                                        <lido:earliestDate>
+                                                            <xsl:value-of select="./owner_hist.date.start[4]"/>
+                                                        </lido:earliestDate>
+                                                        <lido:latestDate>
+                                                            <xsl:value-of select="./owner_hist.date.end[4]"/>
+                                                        </lido:latestDate>
+                                                    </lido:date>
+                                                </lido:eventDate>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: PLACE [4]-->
+
+                                            <xsl:if test="./owner_hist.place[4]">
+                                                <lido:eventPlace>
+                                                    <lido:place>
+                                                        <lido:placeID lido:type="local" lido:label="Adlib database number">
+                                                            <xsl:value-of select="./owner_hist.place.lref[4]"/>
+                                                        </lido:placeID>
+                                                        <lido:namePlaceSet>
+                                                            <lido:appellationValue>
+                                                                <xsl:value-of select="./owner_hist.place[4]/value"/>
+                                                            </lido:appellationValue>
+                                                        </lido:namePlaceSet>
+                                                    </lido:place>
+                                                </lido:eventPlace>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY:  ACQUISITION METHOD [4] -->
+
+                                            <xsl:if test="./owner_hist.acquisition.method[4]">
+                                                <lido:eventMethod>
+                                                    <lido:conceptID lido:type="local" lido:label="Adlib database number">
+                                                        <xsl:value-of select="./owner_hist.acquisition.method.lref[4]"/>
+                                                    </lido:conceptID>
+                                                    <lido:term>
+                                                        <xsl:value-of select="./owner_hist.acquisition.method[4]/value"/>
+                                                    </lido:term>
+                                                </lido:eventMethod>
+                                            </xsl:if>
+
+                                            <!-- OWNER HISTORY: NOTES [1] -->
+
+                                            <xsl:if test="./owner_hist.notes[4]">
+                                                <lido:eventDescriptionSet>
+                                                    <lido:descriptiveNoteValue><xsl:value-of select="./owner_hist.notes[4]/value"/></lido:descriptiveNoteValue>
+                                                </lido:eventDescriptionSet>
+                                            </xsl:if>
+
+                                        </lido:eventSet>
+                                    </xsl:if>
+                                </xsl:if>
+
 
 
 
@@ -215,3 +708,4 @@
 
     </xsl:template>
 </xsl:stylesheet>
+<!-- todo: digital_reference (museuminzicht)? -->
