@@ -180,10 +180,14 @@
                                                         <lido:ActorID lido:type="local" lido:label="Adlib database number"><xsl:value-of
                                                                 select="acquisition.source.lref"/></lido:ActorID>
                                                         <lido:nameActorSet>
-                                                            <lido:appelationValue><xsl:value-of select="./acquisition.source/value"/></lido:appelationValue>
+                                                            <lido:appelationValue>
+                                                                <xsl:value-of select="./acquisition.source/value"/>
+                                                            </lido:appelationValue>
                                                         </lido:nameActorSet>
                                                     </lido:Actor>
-                                                    <lido:roleActor><lido:term>repeller</lido:term></lido:roleActor>
+                                                    <lido:roleActor>
+                                                        <lido:term>repeller</lido:term>
+                                                    </lido:roleActor>
                                                 </lido:eventActor>
                                             </xsl:for-each>
 
@@ -195,10 +199,14 @@
                                                     <lido:actor>
                                                         <lido:actorID lido:type="local" lido:label="Adlib database number"><xsl:value-of select="current_owner.lref"/></lido:actorID>
                                                         <lido:nameActorSet>
-                                                            <lido:appellationValue><xsl:value-of select="./current_owner"/></lido:appellationValue>
+                                                            <lido:appellationValue>
+                                                                <xsl:value-of select="./current_owner"/>
+                                                            </lido:appellationValue>
                                                         </lido:nameActorSet>
                                                     </lido:actor>
-                                                    <lido:roleActor><lido:term>acquirer</lido:term></lido:roleActor>
+                                                    <lido:roleActor>
+                                                        <lido:term>acquirer</lido:term>
+                                                    </lido:roleActor>
                                                 </lido:actorInRole>
                                             </lido:eventActor>
                                             </xsl:if>
@@ -224,7 +232,9 @@
                                                             <xsl:value-of select="./acquisition.place.lref"/>
                                                         </lido:placeID>
                                                         <lido:namePlaceSet>
-                                                            <lido:appellationValue><xsl:value-of select="./acquisition.place"/></lido:appellationValue>
+                                                            <lido:appellationValue>
+                                                                <xsl:value-of select="./acquisition.place"/>
+                                                            </lido:appellationValue>
                                                         </lido:namePlaceSet>
                                                     </lido:place>
                                                 </lido:eventPlace>
