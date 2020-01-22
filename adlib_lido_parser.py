@@ -1,6 +1,6 @@
 #%%
 import lxml.etree as ET
-import pandas as pd
+from xml.dom import minidom
 
 '''ETL parse XSLT and parse XML(Adlib)  and transform XML(adlib) into XML LIDO'''
 
