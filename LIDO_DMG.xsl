@@ -696,11 +696,149 @@
                                     </xsl:if>
                                 </xsl:if>
 
+                                <!-- EXHIBITION HISTORY-->
+                                <!-- events in eventSet -->
 
+                                <xsl:if test="./Exhibition">
+                                    <xsl:for-each select="./Exhibition">
+                                        <lido:eventSet>
+                                            <lido:event>
 
+                                                <!-- LOCAL ID FOR EXHIBTIONS (REFERENCE NUMBER | CATALOGUE NUMBER | LREF -->
+
+                                                <lido:eventID lido:type="local reference number">
+                                                    <xsl:value-of select="./exhibition.reference_number"/>
+                                                </lido:eventID>
+                                                <lido:eventID lido:type="local catalogue number">
+                                                    <xsl:value-of select="./exhibition.catalogue_number"/>
+                                                </lido:eventID>
+                                                <lido:eventID lido:type="Adlib database number">
+                                                    <xsl:value-of select="./exhibition.lref"/>
+                                                </lido:eventID>
+
+                                                <!-- EXHIBITION TITLE-->
+
+                                                <xsl:if test="./exhibition">
+                                                    <lido:eventName>
+                                                        <lido:appellationValue>
+                                                            <xsl:value-of select="./exhibition"/>
+                                                        </lido:appellationValue>
+                                                    </lido:eventName>
+                                                </xsl:if>
+
+                                                <!-- EXHIBITION ORGANIZER -->
+
+                                                <xsl:if test="./exhibition.organiser">
+                                                    <lido:eventActor>
+                                                        <lido:actorInRole>
+                                                            <lido:actor>
+                                                                <lido:nameActorSet>
+                                                                    <lido:appellationValue>
+                                                                        <xsl:value-of select="./exhibition.organiser"/>
+                                                                    </lido:appellationValue>
+                                                                </lido:nameActorSet>
+                                                            </lido:actor>
+                                                        </lido:actorInRole>
+                                                    </lido:eventActor>
+                                                </xsl:if>
+
+                                                <!-- EXHIBITION DATE START - END -->
+
+                                                <xsl:if test="./exhitbition.date.start or ./exhibition.date.end">
+                                                    <lido:eventDate>
+                                                        <lido:date>
+                                                            <lido:earliestDate>
+                                                                <xsl:value-of select="./exhibtion.date.start"/>
+                                                            </lido:earliestDate>
+                                                            <lido:latestDate>
+                                                                <xsl:value-of select="./exhibition.date.end"/>
+                                                            </lido:latestDate>
+                                                        </lido:date>
+                                                    </lido:eventDate>
+                                                </xsl:if>
+
+                                                <!-- EXHIBITION LOCATION -->
+
+                                                <xsl:if test="./exhibition.venue or ./exhibition.venue.place">
+                                                    <lido:eventPlace>
+                                                        <lido:place>
+                                                            <lido:namePlaceSet>
+                                                                <xsl:value-of select="./exhibition.venue"/>;<xsl:value-of
+                                                                    select="./exhibition.venue.place"/>
+                                                            </lido:namePlaceSet>
+                                                        </lido:place>
+                                                    </lido:eventPlace>
+                                                </xsl:if>
+
+                                            </lido:event>
+                                        </lido:eventSet>
+                                    </xsl:for-each>
+                                </xsl:if>
+
+                                <!-- EXHIBITION LOAN OUT-->
+
+                                <xsl:if test="./Loan_out">
+                                    <xsl:for-each select="./Loan_out">
+                                        <lido:eventSet>
+                                            <lido:event>
+
+                                                <!-- LOCAL ID FOR LOANS-->
+
+                                                <lido:eventID lido:type="local loan ID">
+                                                    <xsl:value-of select="./loan.out.number"/>
+                                                </lido:eventID>
+                                                <lido:eventID lido:type="local loan ID" lido:label="Adlib database number">
+                                                    <xsl:value-of select="./loan.out.lref"/>
+                                                </lido:eventID>
+
+                                                <!-- LOAN OUT: EXHIBITION -->
+
+                                                <xsl:if test="./loan.out.exhibition">
+                                                    <lido:eventName>
+                                                        <lido:appellationValue>
+                                                            <xsl:value-of select="./loan.out.exhibition"/>
+                                                        </lido:appellationValue>
+                                                    </lido:eventName>
+                                                </xsl:if>
+
+                                                <!-- LOAN OUT: REQUESTER -->
+
+                                                <xsl:if test="./loan.out.requester">
+                                                    <lido:eventActor>
+                                                        <lido:actorInRole>
+                                                            <lido:actor>
+                                                                <lido:nameActorSet>
+                                                                    <xsl:value-of select="./loan.out.requester"/>
+                                                                </lido:nameActorSet>
+                                                            </lido:actor>
+                                                        </lido:actorInRole>
+                                                    </lido:eventActor>
+                                                </xsl:if>
+
+                                                <!-- LOAN OUT: PERIOD -->
+
+                                                <xsl:if test="./loan.out.period.start or ./loan.out.period.end">
+                                                    <lido:eventDate>
+                                                        <lido:displayDate>
+                                                            <xsl:value-of select="./loan.out.period.start"/>;<xsl:value-of
+                                                                select="./loan.out.period.end"/>
+                                                        </lido:displayDate>
+                                                        <lido:date>
+                                                            <lido:earliestDate>
+                                                                <xsl:value-of select="./loan.out.period.start"/>
+                                                            </lido:earliestDate>
+                                                            <lido:latestDate>
+                                                                <xsl:value-of select="./loan.out.period.end"/>
+                                                            </lido:latestDate>
+                                                        </lido:date>
+                                                    </lido:eventDate>
+                                                </xsl:if>
+                                            </lido:event>
+                                        </lido:eventSet>
+                                    </xsl:for-each>
+                                </xsl:if>
 
                             </lido:eventWrap>
-
                     </lido:descriptiveMetadata>
                 </lido:lido>
             </xsl:for-each>
