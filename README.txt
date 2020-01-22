@@ -33,7 +33,17 @@ LIDO supports multilingual portal environments. It does this by having a languag
   *owner hist: acquisition method
   *owner hist: notes
 
+  *exhibition hist; ID's
+  *exhibition hist; title
+  *exhibition hist; organizer
+  *exhibition hist; venue + venue location
+  *exhibition hist; start date - end date 
 
+  *loan out: ID's
+  *loan out: title
+  *loan out: location
+  *loan out: title (exhibition)
+  *loan out: startdate - enddate
 
 
 
