@@ -11,10 +11,9 @@
                     <lido:descriptiveMetadata xml:lang="nl-NL">
                             <lido:objectClassificationWrap>
                                 <lido:objectWorkTypeWrap>
-                                    <!-- OGPELET: voor elke Object_name node moet er een objectWorkType node zijn.
-                                     Hier is het belangrijk om <xsl:choose> te gebruiken. ObjectWorkType moet verplicht ingevuld worden voor een lido Record!
-                                     indien er geen object type gedefinieerd werd door de instelling moet er alsnog een lido:objectWorkType aangemaakt worden maar leeg. 
-                                      -->
+
+                                    <!-- OBJECT NAME -->
+
                                     <xsl:choose>
                                         <xsl:when test="./Object_name">
                                             <xsl:for-each select="./Object_name">
@@ -32,8 +31,10 @@
                                     </xsl:choose>
                                 </lido:objectWorkTypeWrap>
                                 <lido:classificationWrap>
-                                    <!--for each object category their needs to be one classification node
+
+                                    <!--OBJECT CATEGORY
                                      todo object_category (parse error)-->
+
                                     <xsl:choose>
                                         <xsl:when test="./object_category">
                                             <xsl:for-each select="./object_category">
@@ -52,7 +53,10 @@
 
                             <lido:ObjectIdentificationWrap>
                                 <lido:titleWrap>
-                                    <!--do we need languages here? -->
+
+                                    <!-- OBJECT TITLE
+                                    TODO do we need languages here? -->
+
                                     <xsl:choose>
                                         <xsl:when test="./Title">
                                             <xsl:for-each select="./Title">
@@ -140,7 +144,9 @@
                                                     </lido:date>
                                                 </lido:eventDate>
                                             </xsl:if>
+
                                             <!--PRODUCTION PLACE -->
+
                                            <xsl:if test="./production.place"> 
                                                 <lido:eventPlace> 
                                                     <lido:place> 
