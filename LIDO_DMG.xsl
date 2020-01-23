@@ -51,6 +51,14 @@
                                 </lido:classificationWrap>
                             </lido:objectClassificationWrap>
 
+                        <!-- OBJECT IDENTIFICATION ELEMENTS -->
+                        <!-- 1.titleWrap -->
+                        <!-- 2.inscriptionsWrap -->
+                        <!-- 3.repositoryWrap -->
+                        <!-- 4.displayStateEditionWrap -->
+                        <!-- 5.objectDiscriptionWrap-->
+                        <!-- 6.objectMeasurementsWrap-->
+
                             <lido:ObjectIdentificationWrap>
                                 <lido:titleWrap>
 
@@ -71,22 +79,39 @@
                                             </lido:titleSet>
                                         </xsl:otherwise>
                                     </xsl:choose>
-                                    <xsl:if test="./Titel_translatotion[1]/title.translation">
+                                    <xsl:if test="./Titel_translation[1]/title.translation">
                                         <lido:titleSet>
                                             <lido:appellationValue><xsl:value-of select="./Titel_translation[1]/title.translation"/></lido:appellationValue>
                                         </lido:titleSet>
                                     </xsl:if>
-                                     <xsl:if test="./Titel_translatotion[2]/title.translation">
+                                     <xsl:if test="./Titel_translation[2]/title.translation">
                                         <lido:titleSet>
                                             <lido:appellationValue><xsl:value-of select="./Titel_translation[2]/title.translation"/></lido:appellationValue>
                                         </lido:titleSet>
                                     </xsl:if>
-                                    <xsl:if test="./Titel_translatotion[3]/title.translation">
+                                    <xsl:if test="./Titel_translation[3]/title.translation">
                                         <lido:titleSet>
                                             <lido:appellationValue><xsl:value-of select="./Titel_translation[3]/title.translation"/></lido:appellationValue>
                                         </lido:titleSet>
                                     </xsl:if>
                                 </lido:titleWrap>
+
+                                <!-- OBJECT INSCRIPTIONS AND OTHER MARKS -->
+                                <!-- todo check if these are the right values! -->
+
+                                <lido:inscriptionsWrap>
+                                    <xsl:if test="./Inscription">
+                                        <lido:inscriptions>
+                                            <lido:inscriptionTranscription>
+                                                <xsl:value-of select="./inscription.transliteration"/>
+                                            </lido:inscriptionTranscription>
+                                            <lido:
+                                        </lido:inscriptions>
+                                    </xsl:if>
+                                </lido:inscriptionsWrap>
+
+                                <!-- REPOSITORY -->
+
                                 <lido:repositoryWrap>
                                     <lido:repositorySet>
                                         <lido:repositoryName>
@@ -101,7 +126,22 @@
 
                             </lido:ObjectIdentificationWrap>
 
-                    <!-- OBJECT MEASUREMENTS-->
+                        <!-- todo displayStateEditionWrap -->
+                        <!-- objectDescriptionWrap -->
+
+                            <lido:objectDescriptionWrap>
+                                <xsl:if test="./Description">
+                                    <lido:objectDescriptionSet>
+                                        <lido:descriptiveNoteID lido:type="description">
+                                        </lido:descriptiveNoteID>
+                                        <lido:dscriptiveNoteValue>
+                                            <xsl:value-of select="./description"/>
+                                        </lido:dscriptiveNoteValue>
+                                    </lido:objectDescriptionSet>
+                                </xsl:if>
+                            </lido:objectDescriptionWrap>
+
+                        <!-- OBJECT MEASUREMENTS-->
 
                             <lido:objectMeasurmentsWrap>
                                 <xsl:if test= "./Dimension">
@@ -129,7 +169,17 @@
                                 </xsl:if>
                             </lido:objectMeasurmentsWrap>
 
-                        <!--LIDO EVENT WRAPPER -->
+                        <!--EVENT ELEMENTS -->
+                        <!--production -->
+                        <!--production.date -->
+                        <!--period -->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
 
                             <lido:eventWrap>
                                 <xsl:if test="Production | Production_date">
@@ -199,16 +249,6 @@
                                                 </lido:eventPlace> 
                                             </xsl:if>
 
-
-                                        </lido:event>
-                                    </lido:eventSet>
-                                </xsl:if>
-
-                                <!-- DIMENSIONS -->
-
-                                <xsl:if test="dimension.type | dimension.value | dimension.unit | dimension.part">
-                                    <lido:eventSet>
-                                        <lido:event>
 
                                         </lido:event>
                                     </lido:eventSet>
