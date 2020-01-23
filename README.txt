@@ -22,7 +22,11 @@ LIDO supports multilingual portal environments. It does this by having a languag
   *Production_date(start/precision/end/precision)
   *Production_place
 
-  *Dimension
+  *Dimension:display
+  *Dimension.type
+  *Dimension.Unit
+  *Dimension.value
+  *Dimension.part
 
   *Acquisition_source
   *Acqusuition: Current_owner
@@ -52,6 +56,6 @@ TODO:
 - reconciliate PID's from thesaurus to parse in LIDO xml. >
  via lref? For loop? Xpath / python?
 
-- fix priref issue. not parsing. 
+- fix priref issue. not parsing.
 
 

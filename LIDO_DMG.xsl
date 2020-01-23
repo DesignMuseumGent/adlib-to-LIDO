@@ -101,6 +101,34 @@
 
                             </lido:ObjectIdentificationWrap>
 
+                    <!-- OBJECT MEASUREMENTS-->
+
+                            <lido:objectMeasurmentsWrap>
+                                <xsl:if test= "./Dimension">
+                                    <lido:objectMeasurementsSet>
+                                        <xsl:for-each select="./Dimension">
+                                            <lido:displayObjectMeasurements>
+                                                <xsl:value-of select="./dimension.type"/>: <xsl:value-of select="./dimension.value"/>  <xsl:value-of select="./dimension.unit"/> (<xsl:value-of
+                                                    select="./dimension.part"/>)
+                                            </lido:displayObjectMeasurements>
+                                            <lido:objectMeasurements>
+                                                <lido:measurementsSet>
+                                                    <lido:meausurementType>
+                                                        <xsl:value-of select="./dimension.type"/>
+                                                    </lido:meausurementType>
+                                                    <lido:measurementUnit>
+                                                        <xsl:value-of select="./dimension.unit"/>
+                                                    </lido:measurementUnit>
+                                                    <lido:measurementValue>
+                                                        <xsl:value-of select="./dimension.value"/>
+                                                     </lido:measurementValue>
+                                                </lido:measurementsSet>
+                                            </lido:objectMeasurements>
+                                        </xsl:for-each>
+                                    </lido:objectMeasurementsSet>
+                                </xsl:if>
+                            </lido:objectMeasurmentsWrap>
+
                         <!--LIDO EVENT WRAPPER -->
 
                             <lido:eventWrap>
