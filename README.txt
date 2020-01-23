@@ -14,6 +14,12 @@ LIDO supports multilingual portal environments. It does this by having a languag
   *Object_title
   *Title_translation
   *Object_number
+  
+#inscriptionsWrap
+
+#repositoryWrap
+
+#objectDescriptionWrap
 
 #objectMeasurementsWrap:#
   
