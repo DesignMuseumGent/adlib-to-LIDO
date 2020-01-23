@@ -15,6 +15,14 @@ LIDO supports multilingual portal environments. It does this by having a languag
   *Title_translation
   *Object_number
 
+#Object Measurenebts Wrapper:#
+  
+  *Dimension:display
+  *Dimension.type
+  *Dimension.Unit
+  *Dimension.value
+  *Dimension.part
+
 #EventWrap:#
 
   *Creator
@@ -22,12 +30,6 @@ LIDO supports multilingual portal environments. It does this by having a languag
   *Production_date(start/precision/end/precision)
   *Period
   *Production_place
-
-  *Dimension:display
-  *Dimension.type
-  *Dimension.Unit
-  *Dimension.value
-  *Dimension.part
 
   *Acquisition_source
   *Acqusuition: Current_owner
