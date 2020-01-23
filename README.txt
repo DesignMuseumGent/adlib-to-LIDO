@@ -22,6 +22,8 @@ LIDO supports multilingual portal environments. It does this by having a languag
   *Production_date(start/precision/end/precision)
   *Production_place
 
+  *Dimension
+
   *Acquisition_source
   *Acqusuition: Current_owner
   *Acquisition: method 

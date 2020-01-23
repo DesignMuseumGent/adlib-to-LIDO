@@ -163,6 +163,16 @@
                                     </lido:eventSet>
                                 </xsl:if>
 
+                                <!-- DIMENSIONS -->
+
+                                <xsl:if test="dimension.type | dimension.value | dimension.unit | dimension.part">
+                                    <lido:eventSet>
+                                        <lido:event>
+
+                                        </lido:event>
+                                    </lido:eventSet>
+                                </xsl:if>
+
                                 <!-- PEDIGREE -->
 
                                 <xsl:if test="Acquisition_source | current_owner | acquisition.date | acquisition.method | acquisition.place | acquisition.notes">
@@ -849,6 +859,9 @@
                                                         </lido:date>
                                                     </lido:eventDate>
                                                 </xsl:if>
+
+                                                <!-- SCHOOL || STYLE -->
+
                                             </lido:event>
                                         </lido:eventSet>
                                     </xsl:for-each>

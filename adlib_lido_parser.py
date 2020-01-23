@@ -1,7 +1,7 @@
 #%%
 import lxml.etree as ET
 
-dom = ET.parse("/Users/oliviervandhuynslager/Documents/GitHub/adlib-to-LIDO/WOLFERS_INPUT(ADLIB).xml")
+dom = ET.parse("/Users/oliviervandhuynslager/Documents/GitHub/adlib-to-LIDO/20200121_DMG_OBJ_WOLFERS.xml")
 xslt = ET.parse("/Users/oliviervandhuynslager/Documents/GitHub/adlib-to-LIDO/LIDO_DMG.xsl")
 transform = ET.XSLT(xslt)
 newdom = transform(dom)
