@@ -6,8 +6,8 @@ import lxml.etree as ET
 '''1. parse export ADLIB (grouped XML)'''
 '''2. parse xsl (for transformation)'''
 
-dom = ET.parse("/Users/oliviervandhuynslager/Documents/GitHub/adlib-to-LIDO/20200121_DMG_OBJ_WOLFERS.xml")
-xslt = ET.parse("/Users/oliviervandhuynslager/Documents/GitHub/adlib-to-LIDO/LIDO_DMG.xsl")
+dom = ET.parse("/Users/oliviervandhuynslager/Documents/GitHub/adlib-to-LIDO/20200121_DMG_OBJ_WOLFERS.xml") ##filepath to export
+xslt = ET.parse("/Users/oliviervandhuynslager/Documents/GitHub/adlib-to-LIDO/LIDO_DMG.xsl") ##filepath to xsl
 
 ##transformation
 
