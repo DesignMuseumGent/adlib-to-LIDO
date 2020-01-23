@@ -162,15 +162,28 @@
 
                                             <xsl:if test="Production_date">
                                                 <lido:eventDate>
-                                                    <lido:displayDate><xsl:value-of select="./Production_date/production.date.start.prec"/>;<xsl:value-of
-                                                            select="./Production_date/production.date.start"/>;<xsl:value-of
-                                                            select="./Production_date/production.date.end.prec"/><xsl:value-of
-                                                            select="./Production_date/production.date.end"/></lido:displayDate>
+                                                    <lido:displayDate><xsl:value-of select="./Production_date/production.date.start"/>
+                                                        (<xsl:value-of select="./Production_date/production.date.start.prec"/>) - <xsl:value-of
+                                                            select="./Production_date/production.date.end"/>(<xsl:value-of
+                                                            select="./Production_date/production.date.end.prec"/>) </lido:displayDate>
                                                     <lido:date>
                                                         <lido:earliestDate><xsl:value-of select="./Production_date/production.date.start"/></lido:earliestDate>
                                                         <lido:latestDate><xsl:value-of select="./Production_date/production.date.end"/></lido:latestDate>
                                                     </lido:date>
                                                 </lido:eventDate>
+                                            </xsl:if>
+
+                                            <!-- PERIOD -->
+
+                                            <xsl:if test="./production.period">
+                                                <lido:periodName>
+                                                    <lido:conceptID lido:type="local" lido:label="Adlib database number"><xsl:value-of
+                                                            select="./production.period.lref"/>
+                                                    </lido:conceptID>
+                                                    <lido:term>
+                                                        <xsl:value-of select="./production.period"/>
+                                                    </lido:term>
+                                                </lido:periodName>
                                             </xsl:if>
 
                                             <!--PRODUCTION PLACE -->

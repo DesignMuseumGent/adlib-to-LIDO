@@ -20,6 +20,7 @@ LIDO supports multilingual portal environments. It does this by having a languag
   *Creator
   *Creator_qualifier
   *Production_date(start/precision/end/precision)
+  *Period
   *Production_place
 
   *Dimension:display
