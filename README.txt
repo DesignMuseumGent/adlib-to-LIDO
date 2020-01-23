@@ -50,7 +50,6 @@ LIDO supports multilingual portal environments. It does this by having a languag
 
 TODO:
 - reconciliate PID's from thesaurus to parse in LIDO xml.
-- lref? (Alina?)
 
 
 
